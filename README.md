@@ -1,4 +1,4 @@
-# Infisical Node.js SDK
+# Infisical Java SDK
 
 The Infisical SDK provides a convenient way to interact with the Infisical API. 
 

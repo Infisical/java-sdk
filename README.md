@@ -31,6 +31,31 @@ If you’re working with Java, the official Infisical Java SDK package is the ea
 ## Documentation
 You can find the documentation for the Java SDK on our [SDK documentation page](https://infisical.com/docs/sdks/languages/java).
 
+## Directory Structure
+Following is the directory structure of key directory ```src``` in this SDK :
+
+```text
+|
+└── src/
+    ├── main/
+    │   ├── java/com/infisical/sdk
+    │   |    ├── api    => Actually calls the HTTPs methods (GET, POST, etc.)
+    |   |    ├── auth   => (AwsAuthProvider class with it's methods)
+    |   |    ├── config => (Just stores the url where the infisical instance exists, "app.infisical.com")
+    |   |    ├── models => (Contains data classes/models, auto getters, setters & constructors)
+    |   |    ├── resources => (Contains methods users sees/interacts mostly with,
+    |   |    |               This is also where auth methods are, UniversalAuth LdapAuthLogin)
+    |   |    ├── util   => (Nothing serious, just checks if is string’s null/empty, converts map to object etc)
+    |   |    └── InfisicalSdk.java  =>  (Wrapper class for all of above classes but uses only most useful ones.)
+    |   |
+    |   └── resources
+    |        └── logback.xml
+    |
+    └── test/java/com/infisical/sdk
+        ├── auth
+        ├── util
+        └── InfisicalSdkTest.java
+```
 ## Security
 
 Please do not file GitHub issues or post on our public forum for security vulnerabilities, as they are public!

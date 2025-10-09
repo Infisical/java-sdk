@@ -130,6 +130,14 @@
       <version>2.34.8</version>
       <optional>true</optional>
     </dependency>
+    
+    <!--    GCP dependencies-->
+    <dependency>
+      <groupId>com.google.auth</groupId>
+      <artifactId>google-auth-library-oauth2-http</artifactId>
+      <version>1.20.0</version> <!-- or latest -->
+  </dependency>
+
     <!--    Testing dependencies-->
     <dependency>
       <groupId>org.junit.jupiter</groupId>

@@ -61,7 +61,7 @@ public class AuthClient {
     var url = String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/gcp-auth/login");
 
     var input = GCPAuthProvider.getGCPAuthInput(identityId);
-    var credential = this.apiClient.post(url, input ,MachineIdentityCredential.class);
+    var credential = this.apiClient.post(url, input, MachineIdentityCredential.class);
     this.onAuthenticate.accept(credential.getAccessToken());
   }
 

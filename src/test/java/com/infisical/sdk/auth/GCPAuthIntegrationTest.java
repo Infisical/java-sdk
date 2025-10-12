@@ -53,7 +53,7 @@ public class GCPAuthIntegrationTest{
             assertNotNull(secrets, "Secrets list should not be null");
             assertFalse(secrets.isEmpty(), "Secrets list should not be empty");
 
-            logger.info("TestGCPAuth Successfull");
+            logger.info("TestGCPAuth Successful");
             logger.info("Secrets length :  {}", secrets.size());
 
         } catch (Exception e) {

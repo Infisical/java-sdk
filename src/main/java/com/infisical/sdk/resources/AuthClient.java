@@ -58,6 +58,11 @@ public class AuthClient {
   }
 
   public void GCPAuthLogin(String identityId) throws InfisicalException {
+
+    if (identityId == null || identityId.isEmpty() )
+
+      throw new InfisicalException( "Identity ID is required");
+
     var url = String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/gcp-auth/login");
 
     var input = GCPAuthProvider.getGCPAuthInput(identityId);

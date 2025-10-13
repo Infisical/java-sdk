@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GCPAuthIntegrationTest{
+public class GCPAuthIntegrationTest {
 
     private static final Logger logger = LoggerFactory.getLogger(GCPAuthIntegrationTest.class);
     @Test

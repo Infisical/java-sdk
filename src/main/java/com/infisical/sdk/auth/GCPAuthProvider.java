@@ -8,10 +8,15 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.auth.oauth2.IdTokenCredentials;
 import com.google.auth.oauth2.IdTokenProvider;
 import com.google.auth.oauth2.IdTokenProvider.Option;
+import com.infisical.sdk.util.InfisicalException;
 
 public class GCPAuthProvider {
 
-    public static HashMap<String,String> getGCPAuthInput(String identityId){
+    public static HashMap<String,String> getGCPAuthInput(String identityId) throws InfisicalException{
+
+        if ( identityId == null || identityId.isEmpty() )
+
+            throw new InfisicalException( "Identity ID is required");
 
         try{
 
@@ -29,7 +34,7 @@ public class GCPAuthProvider {
             // Get the ID token.
             String idToken = idTokenCredentials.refreshAccessToken().getTokenValue();
     
-            // Body cannot be a string so... HashMap can use bulider, POJO etc
+            // Body cannot be a string so used a HashMap, you can use builder, POJO etc
             HashMap<String, String> body =  new HashMap<>();
               body.put("identityId", identityId);
               body.put("jwt", idToken);
@@ -37,7 +42,9 @@ public class GCPAuthProvider {
             return body;
 
         } catch (IOException e){
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to fetch Google credentails", e);
+        } catch (Exception e){
+            throw new RuntimeException("Error during GCP Authentication", e);
         }
 
     }

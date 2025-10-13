@@ -42,7 +42,7 @@ public class GCPAuthProvider {
             return body;
 
         } catch (IOException e){
-            throw new RuntimeException("Failed to fetch Google credentails", e);
+throw new RuntimeException("Failed to fetch Google credentials", e);
         } catch (Exception e){
             throw new RuntimeException("Error during GCP Authentication", e);
         }

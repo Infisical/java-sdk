@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  format:
+    image: cimg/openjdk:21.0
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - GOOGLE_JAVA_FORMAT_VERSION=1.30.0
+    command: >
+      bash -c '
+        curl -sSL https://github.com/google/google-java-format/releases/download/v${GOOGLE_JAVA_FORMAT_VERSION}/google-java-format-${GOOGLE_JAVA_FORMAT_VERSION}-all-deps.jar -o /tmp/google-java-format.jar &&
+        java -jar /tmp/google-java-format.jar --replace $(find . -type f -name "*.java")
+      '

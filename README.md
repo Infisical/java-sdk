@@ -41,7 +41,7 @@ Note that this security address should be used only for undisclosed vulnerabilit
 
 ## Code style
 
-The Java code in this project should be formatted with [google-java-format](https://github.com/google/google-java-format).
+The non-generated Java code in this project should be formatted with [google-java-format](https://github.com/google/google-java-format).
 To run it for all the Java files in the project, use the following command:
 
 ```bash

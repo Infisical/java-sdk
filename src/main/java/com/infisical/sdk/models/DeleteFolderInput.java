@@ -18,7 +18,8 @@ public class DeleteFolderInput {
   private String folderId;
 
   @SerializedName("path")
-  @Builder.Default private String folderPath = "/";
+  @Builder.Default
+  private String folderPath = "/";
 
   public String validate() {
     if (Helper.isNullOrEmpty(projectId)) {

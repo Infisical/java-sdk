@@ -5,40 +5,39 @@ import com.infisical.sdk.config.SdkConfig;
 import com.infisical.sdk.resources.AuthClient;
 import com.infisical.sdk.resources.FoldersClient;
 import com.infisical.sdk.resources.SecretsClient;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-
 
 public class InfisicalSdk {
-    private SecretsClient secretsClient;
-    private FoldersClient foldersClient;
-    private AuthClient authClient;
+  private SecretsClient secretsClient;
+  private FoldersClient foldersClient;
+  private AuthClient authClient;
 
-    private ApiClient apiClient;
+  private ApiClient apiClient;
 
   public InfisicalSdk(SdkConfig config) {
 
-      this.apiClient = new ApiClient(config.getSiteUrl(), null);
+    this.apiClient = new ApiClient(config.getSiteUrl(), null);
 
     this.authClient = new AuthClient(apiClient, this::onAuthenticate);
     this.secretsClient = new SecretsClient(apiClient);
   }
 
   private void onAuthenticate(String accessToken) {
-      this.apiClient = new ApiClient(apiClient.GetBaseUrl(), accessToken);
+    this.apiClient = new ApiClient(apiClient.GetBaseUrl(), accessToken);
 
-      this.secretsClient = new SecretsClient(apiClient);
-      this.foldersClient = new FoldersClient(apiClient);
-      this.authClient = new AuthClient(apiClient, this::onAuthenticate);
+    this.secretsClient = new SecretsClient(apiClient);
+    this.foldersClient = new FoldersClient(apiClient);
+    this.authClient = new AuthClient(apiClient, this::onAuthenticate);
   }
 
   public AuthClient Auth() {
-      return this.authClient;
+    return this.authClient;
   }
+
   public SecretsClient Secrets() {
-      return this.secretsClient;
+    return this.secretsClient;
   }
+
   public FoldersClient Folders() {
-      return this.foldersClient;
+    return this.foldersClient;
   }
 }

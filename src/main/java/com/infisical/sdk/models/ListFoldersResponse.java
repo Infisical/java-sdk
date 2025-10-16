@@ -1,8 +1,7 @@
 package com.infisical.sdk.models;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 public class ListFoldersResponse {
   @SerializedName("folders")

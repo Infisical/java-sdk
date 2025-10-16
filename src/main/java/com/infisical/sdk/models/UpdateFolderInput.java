@@ -18,11 +18,11 @@ public class UpdateFolderInput {
   private String folderId;
 
   @SerializedName("path")
-  @Builder.Default private String folderPath = "/";
+  @Builder.Default
+  private String folderPath = "/";
 
   @SerializedName("name")
   private String newFolderName;
-
 
   public String validate() {
     if (Helper.isNullOrEmpty(projectId)) {

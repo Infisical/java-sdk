@@ -1,7 +1,6 @@
 package com.infisical.sdk.models;
 
 import com.google.gson.annotations.SerializedName;
-
 import com.infisical.sdk.util.Helper;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +15,8 @@ public class ListFoldersInput {
   private String environmentSlug;
 
   @SerializedName("path")
-  @Builder.Default private String folderPath = "/";
+  @Builder.Default
+  private String folderPath = "/";
 
   @SerializedName("recursive")
   private Boolean recursive;

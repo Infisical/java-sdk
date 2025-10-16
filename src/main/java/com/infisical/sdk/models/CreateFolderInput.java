@@ -1,7 +1,6 @@
 package com.infisical.sdk.models;
 
 import com.google.gson.annotations.SerializedName;
-
 import com.infisical.sdk.util.Helper;
 import lombok.Builder;
 import lombok.Data;
@@ -43,5 +42,4 @@ public class CreateFolderInput {
 
     return null;
   }
-
 }

@@ -66,7 +66,9 @@ class AwsAuthProviderTest {
             Map.entry("X-Amz-Date", "20251002T231159Z"),
             Map.entry(
                 "Authorization",
-                "AWS4-HMAC-SHA256 Credential=MOCK_ACCESS_KEY/20251002/us-west-2/sts/aws4_request, SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token, Signature=9b1b93454bea36297168ed67a861df12d17136f47cbdf5d23b1daa0fe704742b")),
+                "AWS4-HMAC-SHA256 Credential=MOCK_ACCESS_KEY/20251002/us-west-2/sts/aws4_request,"
+                    + " SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date;x-amz-security-token,"
+                    + " Signature=9b1b93454bea36297168ed67a861df12d17136f47cbdf5d23b1daa0fe704742b")),
         actualHeaders);
   }
 

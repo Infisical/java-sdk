@@ -34,5 +34,4 @@ public class Folder {
 
   @SerializedName("lastSecretModified")
   private String lastSecretModified;
-
 }

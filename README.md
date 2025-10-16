@@ -39,7 +39,8 @@ Infisical takes security issues very seriously. If you have any concerns about I
 
 Note that this security address should be used only for undisclosed vulnerabilities. Please report any security problems to us before disclosing it publicly.
 
-## Code style
+## Contributing
+### Code style
 
 The non-generated Java code in this project should be formatted with [google-java-format](https://github.com/google/google-java-format).
 To run it for all the Java files in the project, use the following command:

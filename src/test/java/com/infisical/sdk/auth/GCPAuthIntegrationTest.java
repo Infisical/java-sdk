@@ -26,7 +26,7 @@ public class GCPAuthIntegrationTest {
 
             // Check if env variable machine identity is set, others are already tested via env tests
             assertNotNull(machineIdentityId, "INFISICAL_MACHINE_IDENTITY_ID env variable must be set");
-            assertFalse(machineIdentityId == "", "INFISICAL_MACHINE_IDENTITY_ID env variable must not be empty");
+assertFalse(machineIdentityId.isEmpty(), "INFISICAL_MACHINE_IDENTITY_ID env variable must not be empty");
 
 
             // Create SDK instance

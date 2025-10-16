@@ -28,7 +28,6 @@ public class GCPAuthProvider {
                 IdTokenCredentials.newBuilder()
                     .setIdTokenProvider((IdTokenProvider) googleCredentials)
                     .setTargetAudience(identityId)
-                    .setOptions(Arrays.asList(Option.FORMAT_FULL, Option.LICENSES_TRUE))
                     .build();
     
             // Get the ID token.
@@ -43,7 +42,7 @@ public class GCPAuthProvider {
 
         } catch (Exception e){
             if (e.getCause() instanceof UnknownHostException) {
-                throw new InfisicalException("No network connection."); 
+                throw new InfisicalException("Unknown Host, may be check network connection ?"); 
             }
             throw new InfisicalException("Failed to fetch Google credentials: " + e.getMessage());
         }

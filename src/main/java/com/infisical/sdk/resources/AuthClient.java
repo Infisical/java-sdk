@@ -59,7 +59,7 @@ public class AuthClient {
 
   public void GCPAuthLogin(String identityId) throws InfisicalException {
 
-    if (identityId == null || identityId.isEmpty())
+    if (identityId == null||identityId.isEmpty())
 
       throw new InfisicalException("Infisical Identity ID is required");
 

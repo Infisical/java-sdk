@@ -2,7 +2,10 @@ package com.infisical.sdk;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import java.util.List;
+
 import com.infisical.sdk.config.SdkConfig;
+import com.infisical.sdk.models.Secret;
 import com.infisical.sdk.util.EnvironmentVariables;
 import com.infisical.sdk.util.InfisicalException;
 import com.infisical.sdk.util.RandomUtil;
@@ -15,9 +18,9 @@ public class InfisicalSdkTest {
 
   @Test
   public void TestListSecrets() {
-    var envVars = new EnvironmentVariables();
+    EnvironmentVariables envVars = new EnvironmentVariables();
 
-    var sdk = new InfisicalSdk(new SdkConfig.Builder().withSiteUrl(envVars.getSiteUrl()).build());
+    InfisicalSdk sdk = new InfisicalSdk(new SdkConfig.Builder().withSiteUrl(envVars.getSiteUrl()).build());
 
     assertDoesNotThrow(
         () -> {
@@ -27,8 +30,7 @@ public class InfisicalSdkTest {
         });
 
     try {
-      var secrets =
-          sdk.Secrets().ListSecrets(envVars.getProjectId(), "dev", "/", false, false, false, false);
+      List<Secret> secrets = sdk.Secrets().ListSecrets(envVars.getProjectId(), "dev", "/", false, false, false, false);
       logger.info("Secrets length {}", secrets.size());
 
     } catch (InfisicalException e) {
@@ -38,9 +40,9 @@ public class InfisicalSdkTest {
 
   @Test
   public void TestGetSecret() {
-    var envVars = new EnvironmentVariables();
+    EnvironmentVariables envVars = new EnvironmentVariables();
 
-    var sdk = new InfisicalSdk(new SdkConfig.Builder().withSiteUrl(envVars.getSiteUrl()).build());
+    InfisicalSdk sdk = new InfisicalSdk(new SdkConfig.Builder().withSiteUrl(envVars.getSiteUrl()).build());
 
     assertDoesNotThrow(
         () -> {
@@ -50,8 +52,7 @@ public class InfisicalSdkTest {
         });
 
     try {
-      var secret =
-          sdk.Secrets().GetSecret("SECRET", envVars.getProjectId(), "dev", "/", null, null, null);
+      Secret secret = sdk.Secrets().GetSecret("SECRET", envVars.getProjectId(), "dev", "/", null, null, null);
 
       logger.info("TestGetSecret: Secret {}", secret);
 
@@ -66,9 +67,9 @@ public class InfisicalSdkTest {
 
   @Test
   public void TestUpdateSecret() {
-    var envVars = new EnvironmentVariables();
+    EnvironmentVariables envVars = new EnvironmentVariables();
 
-    var sdk = new InfisicalSdk(new SdkConfig.Builder().withSiteUrl(envVars.getSiteUrl()).build());
+    InfisicalSdk sdk = new InfisicalSdk(new SdkConfig.Builder().withSiteUrl(envVars.getSiteUrl()).build());
 
     assertDoesNotThrow(
         () -> {
@@ -78,9 +79,8 @@ public class InfisicalSdkTest {
         });
 
     try {
-      var updatedSecret =
-          sdk.Secrets()
-              .UpdateSecret("SECRET", envVars.getProjectId(), "dev", "/", "new-value-123", null);
+      Secret updatedSecret = sdk.Secrets()
+          .UpdateSecret("SECRET", envVars.getProjectId(), "dev", "/", "new-value-123", null);
 
       logger.info("TestUpdateSecret: Secret {}", updatedSecret);
 
@@ -91,9 +91,9 @@ public class InfisicalSdkTest {
 
   @Test
   public void TestCreateSecret() {
-    var envVars = new EnvironmentVariables();
+    EnvironmentVariables envVars = new EnvironmentVariables();
 
-    var sdk = new InfisicalSdk(new SdkConfig.Builder().withSiteUrl(envVars.getSiteUrl()).build());
+    InfisicalSdk sdk = new InfisicalSdk(new SdkConfig.Builder().withSiteUrl(envVars.getSiteUrl()).build());
 
     assertDoesNotThrow(
         () -> {
@@ -103,11 +103,10 @@ public class InfisicalSdkTest {
         });
 
     try {
-      var secretValue = RandomUtil.generateRandomString(36);
-      var secretName = RandomUtil.generateRandomString(36);
+      String secretValue = RandomUtil.generateRandomString(36);
+      String secretName = RandomUtil.generateRandomString(36);
 
-      var secret =
-          sdk.Secrets().CreateSecret(secretName, secretValue, envVars.getProjectId(), "dev", "/");
+      Secret secret = sdk.Secrets().CreateSecret(secretName, secretValue, envVars.getProjectId(), "dev", "/");
 
       if (secret == null) {
         throw new AssertionError("Secret not found");
@@ -123,9 +122,9 @@ public class InfisicalSdkTest {
 
   @Test
   public void TestDeleteSecret() {
-    var envVars = new EnvironmentVariables();
+    EnvironmentVariables envVars = new EnvironmentVariables();
 
-    var sdk = new InfisicalSdk(new SdkConfig.Builder().withSiteUrl(envVars.getSiteUrl()).build());
+    InfisicalSdk sdk = new InfisicalSdk(new SdkConfig.Builder().withSiteUrl(envVars.getSiteUrl()).build());
 
     assertDoesNotThrow(
         () -> {
@@ -135,13 +134,12 @@ public class InfisicalSdkTest {
         });
 
     try {
-      var secretValue = RandomUtil.generateRandomString(36);
-      var secretName = RandomUtil.generateRandomString(36);
+      String secretValue = RandomUtil.generateRandomString(36);
+      String secretName = RandomUtil.generateRandomString(36);
 
       sdk.Secrets().CreateSecret(secretName, secretValue, envVars.getProjectId(), "dev", "/");
 
-      var deletedSecret =
-          sdk.Secrets().DeleteSecret(secretName, envVars.getProjectId(), "dev", "/");
+      Secret deletedSecret = sdk.Secrets().DeleteSecret(secretName, envVars.getProjectId(), "dev", "/");
 
       if (deletedSecret == null) {
         throw new AssertionError("Secret not found");

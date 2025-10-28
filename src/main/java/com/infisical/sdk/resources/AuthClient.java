@@ -19,24 +19,23 @@ public class AuthClient {
   }
 
   public void UniversalAuthLogin(String clientId, String clientSecret) throws InfisicalException {
-    var params =
-        UniversalAuthLoginInput.builder().clientId(clientId).clientSecret(clientSecret).build();
+    UniversalAuthLoginInput params = UniversalAuthLoginInput.builder().clientId(clientId).clientSecret(clientSecret)
+        .build();
 
-    var url =
-        String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/universal-auth/login");
-    var credential = this.apiClient.post(url, params, MachineIdentityCredential.class);
+    String url = String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/universal-auth/login");
+    MachineIdentityCredential credential = this.apiClient.post(url, params, MachineIdentityCredential.class);
     this.onAuthenticate.accept(credential.getAccessToken());
   }
 
   public void LdapAuthLogin(LdapAuthLoginInput input) throws InfisicalException {
-    var validationMsg = input.validate();
+    String validationMsg = input.validate();
 
     if (validationMsg != null) {
       throw new InfisicalException(validationMsg);
     }
 
-    var url = String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/ldap-auth/login");
-    var credential = this.apiClient.post(url, input, MachineIdentityCredential.class);
+    String url = String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/ldap-auth/login");
+    MachineIdentityCredential credential = this.apiClient.post(url, input, MachineIdentityCredential.class);
     this.onAuthenticate.accept(credential.getAccessToken());
   }
 
@@ -45,14 +44,14 @@ public class AuthClient {
   }
 
   public void AwsAuthLogin(AwsAuthLoginInput input) throws InfisicalException {
-    var validationMsg = input.validate();
+    String validationMsg = input.validate();
 
     if (validationMsg != null) {
       throw new InfisicalException(validationMsg);
     }
 
-    var url = String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/aws-auth/login");
-    var credential = this.apiClient.post(url, input, MachineIdentityCredential.class);
+    String url = String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/aws-auth/login");
+    MachineIdentityCredential credential = this.apiClient.post(url, input, MachineIdentityCredential.class);
     this.onAuthenticate.accept(credential.getAccessToken());
   }
 

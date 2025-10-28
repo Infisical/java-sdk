@@ -15,9 +15,9 @@ public class FoldersClient {
   }
 
   public Folder Create(CreateFolderInput input) throws InfisicalException {
-    var url = String.format("%s%s", this.httpClient.GetBaseUrl(), "/api/v1/folders");
+    String url = String.format("%s%s", this.httpClient.GetBaseUrl(), "/api/v1/folders");
 
-    var result = this.httpClient.post(url, input, SingleFolderResponse.class);
+    SingleFolderResponse result = this.httpClient.post(url, input, SingleFolderResponse.class);
 
     return result.getFolder();
   }
@@ -27,58 +27,54 @@ public class FoldersClient {
       throw new InfisicalException("Folder ID is required");
     }
 
-    var url =
-        String.format(
-            "%s%s", this.httpClient.GetBaseUrl(), String.format("/api/v1/folders/%s", folderId));
-    var result = this.httpClient.get(url, null, SingleFolderResponse.class);
+    String url = String.format(
+        "%s%s", this.httpClient.GetBaseUrl(), String.format("/api/v1/folders/%s", folderId));
+    SingleFolderResponse result = this.httpClient.get(url, null, SingleFolderResponse.class);
 
     return result.getFolder();
   }
 
   public List<Folder> List(ListFoldersInput input) throws InfisicalException {
-    var validationMsg = input.validate();
+    String validationMsg = input.validate();
 
     if (validationMsg != null) {
       throw new InfisicalException(validationMsg);
     }
 
-    var url = String.format("%s%s", this.httpClient.GetBaseUrl(), "/api/v1/folders");
-    var result =
-        this.httpClient.get(
-            url, ObjectToMapConverter.toStringMap(input), ListFoldersResponse.class);
+    String url = String.format("%s%s", this.httpClient.GetBaseUrl(), "/api/v1/folders");
+    ListFoldersResponse result = this.httpClient.get(
+        url, ObjectToMapConverter.toStringMap(input), ListFoldersResponse.class);
 
     return result.getFolders();
   }
 
   public Folder Update(UpdateFolderInput input) throws InfisicalException {
-    var validationMsg = input.validate();
+    String validationMsg = input.validate();
 
     if (validationMsg != null) {
       throw new InfisicalException(validationMsg);
     }
 
-    var url =
-        String.format(
-            "%s%s",
-            this.httpClient.GetBaseUrl(), String.format("/api/v1/folders/%s", input.getFolderId()));
+    String url = String.format(
+        "%s%s",
+        this.httpClient.GetBaseUrl(), String.format("/api/v1/folders/%s", input.getFolderId()));
 
-    var result = this.httpClient.patch(url, input, SingleFolderResponse.class);
+    SingleFolderResponse result = this.httpClient.patch(url, input, SingleFolderResponse.class);
 
     return result.getFolder();
   }
 
   public Folder Delete(DeleteFolderInput input) throws InfisicalException {
-    var validationMsg = input.validate();
+    String validationMsg = input.validate();
     if (validationMsg != null) {
       throw new InfisicalException(validationMsg);
     }
 
-    var url =
-        String.format(
-            "%s%s",
-            this.httpClient.GetBaseUrl(), String.format("/api/v1/folders/%s", input.getFolderId()));
+    String url = String.format(
+        "%s%s",
+        this.httpClient.GetBaseUrl(), String.format("/api/v1/folders/%s", input.getFolderId()));
 
-    var result = this.httpClient.delete(url, input, SingleFolderResponse.class);
+    SingleFolderResponse result = this.httpClient.delete(url, input, SingleFolderResponse.class);
 
     return result.getFolder();
   }

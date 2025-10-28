@@ -3,6 +3,7 @@ package com.infisical.sdk.api;
 import com.google.gson.Gson;
 import com.infisical.sdk.util.InfisicalException;
 import com.squareup.okhttp.*;
+import com.squareup.okhttp.Request;
 import java.io.IOException;
 import java.util.Map;
 
@@ -69,20 +70,19 @@ public class ApiClient {
   public <T, R> R post(String url, T requestBody, Class<R> responseType) throws InfisicalException {
     try {
       // convert request to json
-      var gson = new Gson();
+      Gson gson = new Gson();
       String jsonBody = gson.toJson(requestBody);
 
       // Build request
-      var requestBuilder =
-          new Request.Builder()
-              .url(url)
-              .post(RequestBody.create(JSON, jsonBody))
-              .header("Accept", "application/json");
+      Request.Builder requestBuilder = new Request.Builder()
+          .url(url)
+          .post(RequestBody.create(JSON, jsonBody))
+          .header("Accept", "application/json");
 
       if (this.accessToken != null && !this.accessToken.isEmpty()) {
         requestBuilder.addHeader("Authorization", "Bearer " + this.accessToken);
       }
-      var request = requestBuilder.build();
+      Request request = requestBuilder.build();
 
       Response response = client.newCall(request).execute();
       try (ResponseBody responseBody = response.body()) {
@@ -111,14 +111,14 @@ public class ApiClient {
         queryParams.forEach(urlBuilder::addQueryParameter);
       }
 
-      var requestBuilder =
-          new Request.Builder().url(urlBuilder.build()).get().header("Accept", "application/json");
+      Request.Builder requestBuilder = new Request.Builder().url(urlBuilder.build()).get().header("Accept",
+          "application/json");
 
       if (this.accessToken != null && !this.accessToken.isEmpty()) {
         requestBuilder.addHeader("Authorization", "Bearer " + this.accessToken);
       }
 
-      var request = requestBuilder.build();
+      Request request = requestBuilder.build();
 
       Response response = client.newCall(request).execute();
       try (ResponseBody responseBody = response.body()) {
@@ -130,7 +130,7 @@ public class ApiClient {
           throw new IOException("Response body is null");
         }
 
-        var gson = new Gson();
+        Gson gson = new Gson();
         String responseJson = responseBody.string();
         return gson.fromJson(responseJson, responseType);
       }
@@ -143,20 +143,19 @@ public class ApiClient {
       throws InfisicalException {
     try {
       // convert request to json
-      var gson = new Gson();
+      Gson gson = new Gson();
       String jsonBody = gson.toJson(requestBody);
 
       // Build request
-      var requestBuilder =
-          new Request.Builder()
-              .url(url)
-              .patch(RequestBody.create(JSON, jsonBody))
-              .header("Accept", "application/json");
+      Request.Builder requestBuilder = new Request.Builder()
+          .url(url)
+          .patch(RequestBody.create(JSON, jsonBody))
+          .header("Accept", "application/json");
 
       if (this.accessToken != null && !this.accessToken.isEmpty()) {
         requestBuilder.addHeader("Authorization", "Bearer " + this.accessToken);
       }
-      var request = requestBuilder.build();
+      Request request = requestBuilder.build();
 
       Response response = client.newCall(request).execute();
       try (ResponseBody responseBody = response.body()) {
@@ -180,20 +179,19 @@ public class ApiClient {
       throws InfisicalException {
     try {
       // convert request to json
-      var gson = new Gson();
+      Gson gson = new Gson();
       String jsonBody = gson.toJson(requestBody);
 
       // Build request
-      var requestBuilder =
-          new Request.Builder()
-              .url(url)
-              .delete(RequestBody.create(JSON, jsonBody))
-              .header("Accept", "application/json");
+      Request.Builder requestBuilder = new Request.Builder()
+          .url(url)
+          .delete(RequestBody.create(JSON, jsonBody))
+          .header("Accept", "application/json");
 
       if (this.accessToken != null && !this.accessToken.isEmpty()) {
         requestBuilder.addHeader("Authorization", "Bearer " + this.accessToken);
       }
-      var request = requestBuilder.build();
+      Request request = requestBuilder.build();
 
       Response response = client.newCall(request).execute();
       try (ResponseBody responseBody = response.body()) {

@@ -25,7 +25,8 @@ public class InfisicalSdkTest {
     assertDoesNotThrow(
         () -> {
           sdk.Auth()
-              .AwsAuthLogin("f36f8795-d340-4dba-8b08-f98f8eb951f0");
+              .UniversalAuthLogin(
+                  envVars.getMachineIdentityClientId(), envVars.getMachineIdentityClientSecret());
         });
 
     try {
@@ -46,7 +47,8 @@ public class InfisicalSdkTest {
     assertDoesNotThrow(
         () -> {
           sdk.Auth()
-              .AwsAuthLogin("f36f8795-d340-4dba-8b08-f98f8eb951f0");
+              .UniversalAuthLogin(
+                  envVars.getMachineIdentityClientId(), envVars.getMachineIdentityClientSecret());
         });
 
     try {
@@ -72,7 +74,8 @@ public class InfisicalSdkTest {
     assertDoesNotThrow(
         () -> {
           sdk.Auth()
-              .AwsAuthLogin("f36f8795-d340-4dba-8b08-f98f8eb951f0");
+              .UniversalAuthLogin(
+                  envVars.getMachineIdentityClientId(), envVars.getMachineIdentityClientSecret());
         });
 
     try {
@@ -95,7 +98,8 @@ public class InfisicalSdkTest {
     assertDoesNotThrow(
         () -> {
           sdk.Auth()
-              .AwsAuthLogin("f36f8795-d340-4dba-8b08-f98f8eb951f0");
+              .UniversalAuthLogin(
+                  envVars.getMachineIdentityClientId(), envVars.getMachineIdentityClientSecret());
         });
 
     try {
@@ -125,7 +129,8 @@ public class InfisicalSdkTest {
     assertDoesNotThrow(
         () -> {
           sdk.Auth()
-              .AwsAuthLogin("f36f8795-d340-4dba-8b08-f98f8eb951f0");
+              .UniversalAuthLogin(
+                  envVars.getMachineIdentityClientId(), envVars.getMachineIdentityClientSecret());
         });
 
     try {

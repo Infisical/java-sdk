@@ -12,13 +12,12 @@ public class EnvironmentVariables {
     this.projectId = System.getenv("INFISICAL_PROJECT_ID");
     this.siteUrl = System.getenv("INFISICAL_SITE_URL");
 
-    if (
-    // machineIdentityClientId == null
-    // || machineIdentityClientSecret == null
-    projectId == null
+    if (machineIdentityClientId == null
+        || machineIdentityClientSecret == null
+        || projectId == null
         || siteUrl == null
-        // || machineIdentityClientId.isEmpty()
-        // || machineIdentityClientSecret.isEmpty()
+        || machineIdentityClientId.isEmpty()
+        || machineIdentityClientSecret.isEmpty()
         || siteUrl.isEmpty()
         || projectId.isEmpty()) {
       throw new RuntimeException("One or more required environment variables are not set");

@@ -4,9 +4,13 @@ import com.infisical.sdk.api.ApiClient;
 import com.infisical.sdk.models.Project;
 import com.infisical.sdk.util.Helper;
 import com.infisical.sdk.util.InfisicalException;
+import java.util.regex.Pattern;
 
 public class ProjectsClient {
   private final ApiClient apiClient;
+
+  /** Allowed slug characters: alphanumeric, hyphen, underscore. Prevents path traversal. */
+  private static final Pattern SLUG_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]{1,64}$");
 
   public ProjectsClient(ApiClient apiClient) {
     this.apiClient = apiClient;
@@ -23,11 +27,16 @@ public class ProjectsClient {
     if (Helper.isNullOrEmpty(slug)) {
       throw new InfisicalException("Project slug is required");
     }
+    String trimmed = slug.trim();
+    if (!SLUG_PATTERN.matcher(trimmed).matches()) {
+      throw new InfisicalException(
+          "Project slug must be 1–64 characters and contain only letters, numbers, hyphens, and underscores");
+    }
 
     String url =
         String.format(
             "%s/api/v1/projects/slug/%s",
-            this.apiClient.GetBaseUrl(), slug.trim());
+            this.apiClient.GetBaseUrl(), trimmed);
     return this.apiClient.get(url, null, Project.class);
   }
 

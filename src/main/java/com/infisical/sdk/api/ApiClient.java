@@ -5,6 +5,7 @@ import com.infisical.sdk.util.InfisicalException;
 import com.squareup.okhttp.*;
 import com.squareup.okhttp.Request;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Map;
 
 public class ApiClient {
@@ -107,7 +108,7 @@ public class ApiClient {
 
   /** POST with empty JSON body. Delegates to {@link #post(String, Object, Class)}. */
   public <R> R post(String url, Class<R> responseType) throws InfisicalException {
-    return post(url, Map.of(), responseType);
+    return post(url, Collections.emptyMap(), responseType);
   }
 
   public <R> R get(String baseUrl, Map<String, String> queryParams, Class<R> responseType)

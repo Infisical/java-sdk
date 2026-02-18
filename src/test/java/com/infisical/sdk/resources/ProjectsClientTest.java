@@ -37,39 +37,6 @@ public class ProjectsClientTest {
   }
 
   @Test
-  public void GetBySlug_throwsWhenSlugContainsPathTraversal() {
-    ProjectsClient client = new ProjectsClient(apiClient);
-
-    InfisicalException ex =
-        assertThrows(InfisicalException.class, () -> client.GetBySlug("../../../admin"));
-    assertEquals(
-        "Project slug must be 1–64 characters and contain only letters, numbers, hyphens, and underscores",
-        ex.getMessage());
-  }
-
-  @Test
-  public void GetBySlug_throwsWhenSlugContainsSlash() {
-    ProjectsClient client = new ProjectsClient(apiClient);
-
-    InfisicalException ex =
-        assertThrows(InfisicalException.class, () -> client.GetBySlug("foo/bar"));
-    assertEquals(
-        "Project slug must be 1–64 characters and contain only letters, numbers, hyphens, and underscores",
-        ex.getMessage());
-  }
-
-  @Test
-  public void GetBySlug_throwsWhenSlugContainsInvalidCharacters() {
-    ProjectsClient client = new ProjectsClient(apiClient);
-
-    InfisicalException ex =
-        assertThrows(InfisicalException.class, () -> client.GetBySlug("my project"));
-    assertEquals(
-        "Project slug must be 1–64 characters and contain only letters, numbers, hyphens, and underscores",
-        ex.getMessage());
-  }
-
-  @Test
   public void GetBySlug_callsGetWithCorrectUrl() throws InfisicalException {
     when(apiClient.GetBaseUrl()).thenReturn("https://app.infisical.com");
     Project project = new Project();

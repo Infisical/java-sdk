@@ -95,37 +95,6 @@ public class ApiClient {
         }
 
         String responseJson = responseBody.string();
-        return gson.fromJson(responseJson, responseType);
-      }
-    } catch (IOException e) {
-      throw new InfisicalException(e);
-    }
-  }
-
-  public <R> R post(String url, Class<R> responseType) throws InfisicalException {
-    try {
-      Gson gson = new Gson();
-      Request.Builder requestBuilder = new Request.Builder()
-          .url(url)
-          .post(RequestBody.create(JSON, "{}"))
-          .header("Accept", "application/json");
-
-      if (this.accessToken != null && !this.accessToken.isEmpty()) {
-        requestBuilder.addHeader("Authorization", "Bearer " + this.accessToken);
-      }
-      Request request = requestBuilder.build();
-
-      Response response = client.newCall(request).execute();
-      try (ResponseBody responseBody = response.body()) {
-        if (!response.isSuccessful()) {
-          throw new IOException(this.formatErrorMessage(response));
-        }
-
-        if (responseBody == null) {
-          throw new IOException("Response body is null");
-        }
-
-        String responseJson = responseBody.string();
         if (responseJson == null || responseJson.trim().isEmpty()) {
           return null;
         }
@@ -134,6 +103,11 @@ public class ApiClient {
     } catch (IOException e) {
       throw new InfisicalException(e);
     }
+  }
+
+  /** POST with empty JSON body. Delegates to {@link #post(String, Object, Class)}. */
+  public <R> R post(String url, Class<R> responseType) throws InfisicalException {
+    return post(url, Map.of(), responseType);
   }
 
   public <R> R get(String baseUrl, Map<String, String> queryParams, Class<R> responseType)

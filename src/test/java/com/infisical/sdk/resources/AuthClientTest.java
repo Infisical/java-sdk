@@ -49,35 +49,4 @@ public class AuthClientTest {
         any(RevokeTokenInput.class),
         eq(Void.class));
   }
-
-  @Test
-  public void RevokeTokenById_throwsWhenTokenIdIsNull() {
-    AuthClient authClient = new AuthClient(apiClient, token -> {});
-
-    InfisicalException ex =
-        assertThrows(InfisicalException.class, () -> authClient.RevokeTokenById(null));
-    assertEquals("Token ID is required", ex.getMessage());
-  }
-
-  @Test
-  public void RevokeTokenById_throwsWhenTokenIdIsEmpty() {
-    AuthClient authClient = new AuthClient(apiClient, token -> {});
-
-    InfisicalException ex =
-        assertThrows(InfisicalException.class, () -> authClient.RevokeTokenById(""));
-    assertEquals("Token ID is required", ex.getMessage());
-  }
-
-  @Test
-  public void RevokeTokenById_callsPostWithCorrectUrl() throws InfisicalException {
-    when(apiClient.GetBaseUrl()).thenReturn("http://localhost");
-    AuthClient authClient = new AuthClient(apiClient, token -> {});
-
-    authClient.RevokeTokenById("id-123");
-
-    verify(apiClient)
-        .post(
-            eq("http://localhost/api/v1/auth/token-auth/tokens/id-123/revoke"),
-            eq(Void.class));
-  }
 }

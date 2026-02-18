@@ -6,7 +6,6 @@ import com.infisical.sdk.models.AwsAuthLoginInput;
 import com.infisical.sdk.models.LdapAuthLoginInput;
 import com.infisical.sdk.models.MachineIdentityCredential;
 import com.infisical.sdk.models.RevokeTokenInput;
-import com.infisical.sdk.models.RevokeTokenResponse;
 import com.infisical.sdk.models.UniversalAuthLoginInput;
 import com.infisical.sdk.util.Helper;
 import com.infisical.sdk.util.InfisicalException;
@@ -62,7 +61,7 @@ public class AuthClient {
     this.onAuthenticate.accept(accessToken);
   }
 
-  public RevokeTokenResponse RevokeToken(String accessToken) throws InfisicalException {
+  public void RevokeToken(String accessToken) throws InfisicalException {
     RevokeTokenInput input = RevokeTokenInput.builder().accessToken(accessToken).build();
 
     String validationMsg = input.validate();
@@ -71,14 +70,14 @@ public class AuthClient {
     }
 
     String url = String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/token/revoke");
-    return this.apiClient.post(url, input, RevokeTokenResponse.class);
+    this.apiClient.post(url, input, Void.class);
   }
 
   /**
    * Revoke a token by its ID (Token Auth). Uses POST
    * /api/v1/auth/token-auth/tokens/{tokenId}/revoke.
    */
-  public RevokeTokenResponse RevokeTokenById(String tokenId) throws InfisicalException {
+  public void RevokeTokenById(String tokenId) throws InfisicalException {
     if (Helper.isNullOrEmpty(tokenId)) {
       throw new InfisicalException("Token ID is required");
     }
@@ -87,6 +86,6 @@ public class AuthClient {
         "%s%s",
         this.apiClient.GetBaseUrl(),
         String.format("/api/v1/auth/token-auth/tokens/%s/revoke", tokenId));
-    return this.apiClient.post(url, RevokeTokenResponse.class);
+    this.apiClient.post(url, Void.class);
   }
 }

@@ -9,7 +9,6 @@ import static org.mockito.Mockito.when;
 
 import com.infisical.sdk.api.ApiClient;
 import com.infisical.sdk.models.RevokeTokenInput;
-import com.infisical.sdk.models.RevokeTokenResponse;
 import com.infisical.sdk.util.InfisicalException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,7 +47,7 @@ public class AuthClientTest {
     verify(apiClient).post(
         eq("http://localhost/api/v1/auth/token/revoke"),
         any(RevokeTokenInput.class),
-        eq(RevokeTokenResponse.class));
+        eq(Void.class));
   }
 
   @Test
@@ -72,8 +71,6 @@ public class AuthClientTest {
   @Test
   public void RevokeTokenById_callsPostWithCorrectUrl() throws InfisicalException {
     when(apiClient.GetBaseUrl()).thenReturn("http://localhost");
-    when(apiClient.post(any(String.class), eq(RevokeTokenResponse.class)))
-        .thenReturn(new RevokeTokenResponse());
     AuthClient authClient = new AuthClient(apiClient, token -> {});
 
     authClient.RevokeTokenById("id-123");
@@ -81,6 +78,6 @@ public class AuthClientTest {
     verify(apiClient)
         .post(
             eq("http://localhost/api/v1/auth/token-auth/tokens/id-123/revoke"),
-            eq(RevokeTokenResponse.class));
+            eq(Void.class));
   }
 }

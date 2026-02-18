@@ -92,21 +92,4 @@ public class ProjectsClientTest {
             eq(null),
             eq(Project.class));
   }
-
-  @Test
-  public void GetProjectIdBySlug_returnsIdFromGetBySlug() throws InfisicalException {
-    when(apiClient.GetBaseUrl()).thenReturn("https://app.infisical.com");
-    Project project = new Project();
-    project.setId("proj-456");
-    when(apiClient.get(
-            eq("https://app.infisical.com/api/v1/projects/slug/acme"),
-            eq(null),
-            eq(Project.class)))
-        .thenReturn(project);
-
-    ProjectsClient client = new ProjectsClient(apiClient);
-    String projectId = client.GetProjectIdBySlug("acme");
-
-    assertEquals("proj-456", projectId);
-  }
 }

@@ -39,16 +39,4 @@ public class ProjectsClient {
             this.apiClient.GetBaseUrl(), trimmed);
     return this.apiClient.get(url, null, Project.class);
   }
-
-  /**
-   * Returns the project ID for the given project slug. Convenience method that
-   * calls GetBySlug and returns {@link Project#getId()}.
-   *
-   * @param slug the project slug
-   * @return the project id
-   * @throws InfisicalException when slug is invalid or the API request fails
-   */
-  public String GetProjectIdBySlug(String slug) throws InfisicalException {
-    return GetBySlug(slug).getId();
-  }
 }

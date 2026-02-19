@@ -99,6 +99,11 @@ public class ApiClient {
         if (responseJson == null || responseJson.trim().isEmpty()) {
           return null;
         }
+
+        if (responseType == Void.class) {
+          return null;
+        }
+
         return gson.fromJson(responseJson, responseType);
       }
     } catch (IOException e) {

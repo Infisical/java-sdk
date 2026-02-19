@@ -5,6 +5,7 @@ import com.infisical.sdk.util.InfisicalException;
 import com.squareup.okhttp.*;
 import com.squareup.okhttp.Request;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Map;
 
 public class ApiClient {
@@ -95,11 +96,24 @@ public class ApiClient {
         }
 
         String responseJson = responseBody.string();
+        if (responseJson == null || responseJson.trim().isEmpty()) {
+          return null;
+        }
+
+        if (responseType == Void.class) {
+          return null;
+        }
+
         return gson.fromJson(responseJson, responseType);
       }
     } catch (IOException e) {
       throw new InfisicalException(e);
     }
+  }
+
+  /** POST with empty JSON body. Delegates to {@link #post(String, Object, Class)}. */
+  public <R> R post(String url, Class<R> responseType) throws InfisicalException {
+    return post(url, Collections.emptyMap(), responseType);
   }
 
   public <R> R get(String baseUrl, Map<String, String> queryParams, Class<R> responseType)

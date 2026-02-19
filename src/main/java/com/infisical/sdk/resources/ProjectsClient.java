@@ -1,0 +1,34 @@
+package com.infisical.sdk.resources;
+
+import com.infisical.sdk.api.ApiClient;
+import com.infisical.sdk.models.Project;
+import com.infisical.sdk.util.Helper;
+import com.infisical.sdk.util.InfisicalException;
+
+public class ProjectsClient {
+  private final ApiClient apiClient;
+
+  public ProjectsClient(ApiClient apiClient) {
+    this.apiClient = apiClient;
+  }
+
+  /**
+   * Fetches project details by slug. Requires authentication.
+   *
+   * @param slug the project slug (e.g. from the project URL)
+   * @return the project including id, name, slug, orgId, etc.
+   * @throws InfisicalException when slug is invalid or the API request fails
+   */
+  public Project GetBySlug(String slug) throws InfisicalException {
+    if (Helper.isNullOrEmpty(slug)) {
+      throw new InfisicalException("Project slug is required");
+    }
+    String trimmed = slug.trim();
+
+    String url =
+        String.format(
+            "%s/api/v1/projects/slug/%s",
+            this.apiClient.GetBaseUrl(), trimmed);
+    return this.apiClient.get(url, null, Project.class);
+  }
+}

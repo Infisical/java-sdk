@@ -1,6 +1,14 @@
 version: '3.8'
 
 services:
+  test:
+    image: maven:3.9-eclipse-temurin-11
+    volumes:
+      - .:/app
+    working_dir: /app
+    # Run only unit tests (no real credentials). Full suite: mvn test with env set.
+    command: mvn test -Dtest=ProjectsClientTest,AwsAuthProviderTest
+
   format:
     image: cimg/openjdk:21.0
     volumes:

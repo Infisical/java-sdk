@@ -4,11 +4,13 @@ import com.infisical.sdk.api.ApiClient;
 import com.infisical.sdk.config.SdkConfig;
 import com.infisical.sdk.resources.AuthClient;
 import com.infisical.sdk.resources.FoldersClient;
+import com.infisical.sdk.resources.ProjectsClient;
 import com.infisical.sdk.resources.SecretsClient;
 
 public class InfisicalSdk {
   private SecretsClient secretsClient;
   private FoldersClient foldersClient;
+  private ProjectsClient projectsClient;
   private AuthClient authClient;
 
   private ApiClient apiClient;
@@ -26,6 +28,7 @@ public class InfisicalSdk {
 
     this.secretsClient = new SecretsClient(apiClient);
     this.foldersClient = new FoldersClient(apiClient);
+    this.projectsClient = new ProjectsClient(apiClient);
     this.authClient = new AuthClient(apiClient, this::onAuthenticate);
   }
 
@@ -39,5 +42,9 @@ public class InfisicalSdk {
 
   public FoldersClient Folders() {
     return this.foldersClient;
+  }
+
+  public ProjectsClient Projects() {
+    return this.projectsClient;
   }
 }

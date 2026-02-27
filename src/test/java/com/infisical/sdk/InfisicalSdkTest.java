@@ -1,6 +1,7 @@
 package com.infisical.sdk;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
@@ -15,6 +16,22 @@ import org.slf4j.LoggerFactory;
 
 public class InfisicalSdkTest {
   private static final Logger logger = LoggerFactory.getLogger(InfisicalSdkTest.class);
+
+  @Test
+  public void TestRevokeToken() {
+    EnvironmentVariables envVars = new EnvironmentVariables();
+
+    InfisicalSdk sdk = new InfisicalSdk(new SdkConfig.Builder().withSiteUrl(envVars.getSiteUrl()).build());
+
+    assertDoesNotThrow(() -> {
+      sdk.Auth().UniversalAuthLogin(envVars.getMachineIdentityClientId(), envVars.getMachineIdentityClientSecret());
+    });
+
+    assertDoesNotThrow(() -> sdk.Auth().RevokeToken());
+
+    // Verify the token is actually revoked — revoking it again should fail
+    assertThrows(InfisicalException.class, () -> sdk.Auth().RevokeToken());
+  }
 
   @Test
   public void TestListSecrets() {

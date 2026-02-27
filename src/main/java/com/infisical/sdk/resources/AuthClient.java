@@ -13,10 +13,17 @@ import java.util.function.Consumer;
 public class AuthClient {
   private final ApiClient apiClient;
   private final Consumer<String> onAuthenticate;
+  private String currentAccessToken;
 
   public AuthClient(ApiClient apiClient, Consumer<String> onAuthenticate) {
     this.apiClient = apiClient;
     this.onAuthenticate = onAuthenticate;
+  }
+
+  public AuthClient(ApiClient apiClient, Consumer<String> onAuthenticate, String initialToken) {
+    this.apiClient = apiClient;
+    this.onAuthenticate = onAuthenticate;
+    this.currentAccessToken = initialToken;
   }
 
   public void UniversalAuthLogin(String clientId, String clientSecret) throws InfisicalException {
@@ -25,7 +32,8 @@ public class AuthClient {
 
     String url = String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/universal-auth/login");
     MachineIdentityCredential credential = this.apiClient.post(url, params, MachineIdentityCredential.class);
-    this.onAuthenticate.accept(credential.getAccessToken());
+    this.currentAccessToken = credential.getAccessToken();
+    this.onAuthenticate.accept(this.currentAccessToken);
   }
 
   public void LdapAuthLogin(LdapAuthLoginInput input) throws InfisicalException {
@@ -37,7 +45,8 @@ public class AuthClient {
 
     String url = String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/ldap-auth/login");
     MachineIdentityCredential credential = this.apiClient.post(url, input, MachineIdentityCredential.class);
-    this.onAuthenticate.accept(credential.getAccessToken());
+    this.currentAccessToken = credential.getAccessToken();
+    this.onAuthenticate.accept(this.currentAccessToken);
   }
 
   public void AwsAuthLogin(String identityId) throws InfisicalException {
@@ -53,11 +62,17 @@ public class AuthClient {
 
     String url = String.format("%s%s", this.apiClient.GetBaseUrl(), "/api/v1/auth/aws-auth/login");
     MachineIdentityCredential credential = this.apiClient.post(url, input, MachineIdentityCredential.class);
-    this.onAuthenticate.accept(credential.getAccessToken());
+    this.currentAccessToken = credential.getAccessToken();
+    this.onAuthenticate.accept(this.currentAccessToken);
   }
 
   public void SetAccessToken(String accessToken) {
+    this.currentAccessToken = accessToken;
     this.onAuthenticate.accept(accessToken);
+  }
+
+  public void RevokeToken() throws InfisicalException {
+    RevokeToken(this.currentAccessToken);
   }
 
   public void RevokeToken(String accessToken) throws InfisicalException {

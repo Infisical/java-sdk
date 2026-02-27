@@ -22,6 +22,28 @@ public class AuthClientTest {
   private ApiClient apiClient;
 
   @Test
+  public void RevokeToken_noArg_throwsWhenNoTokenIsSet() {
+    AuthClient authClient = new AuthClient(apiClient, token -> {});
+
+    InfisicalException ex = assertThrows(InfisicalException.class, () -> authClient.RevokeToken());
+    assertEquals("Access token is required", ex.getMessage());
+  }
+
+  @Test
+  public void RevokeToken_noArg_callsPostWithStoredToken() throws InfisicalException {
+    when(apiClient.GetBaseUrl()).thenReturn("http://localhost");
+    AuthClient authClient = new AuthClient(apiClient, token -> {});
+    authClient.SetAccessToken("stored-token-456");
+
+    authClient.RevokeToken();
+
+    verify(apiClient).post(
+        eq("http://localhost/api/v1/auth/token/revoke"),
+        any(RevokeTokenInput.class),
+        eq(Void.class));
+  }
+
+  @Test
   public void RevokeToken_throwsWhenAccessTokenIsNull() {
     AuthClient authClient = new AuthClient(apiClient, token -> {});
 

@@ -29,7 +29,7 @@ public class InfisicalSdk {
     this.secretsClient = new SecretsClient(apiClient);
     this.foldersClient = new FoldersClient(apiClient);
     this.projectsClient = new ProjectsClient(apiClient);
-    this.authClient = new AuthClient(apiClient, this::onAuthenticate);
+    this.authClient = new AuthClient(apiClient, this::onAuthenticate, accessToken);
   }
 
   public AuthClient Auth() {

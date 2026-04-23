@@ -9,7 +9,7 @@
   <a href="https://www.infisical.com">Website</a> |
   <a href="https://infisical.com/slack">Slack</a> |
 </h4>
-
+test
 <h4 align="center">
   <a href="https://github.com/Infisical/java-sdk/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Infisical SDK's are released under the MIT license." />

@@ -2,8 +2,8 @@ package com.infisical.sdk.api;
 
 import com.google.gson.Gson;
 import com.infisical.sdk.util.InfisicalException;
-import com.squareup.okhttp.*;
-import com.squareup.okhttp.Request;
+import okhttp3.*;
+import okhttp3.Request;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
@@ -14,7 +14,7 @@ public class ApiClient {
   private String accessToken;
   private String baseUrl;
 
-  private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+  private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
   public ApiClient(String baseUrl, String accessToken) {
     this.client = new OkHttpClient();
@@ -77,7 +77,7 @@ public class ApiClient {
       // Build request
       Request.Builder requestBuilder = new Request.Builder()
           .url(url)
-          .post(RequestBody.create(JSON, jsonBody))
+          .post(RequestBody.create(jsonBody, JSON))
           .header("Accept", "application/json");
 
       if (this.accessToken != null && !this.accessToken.isEmpty()) {
@@ -119,7 +119,8 @@ public class ApiClient {
   public <R> R get(String baseUrl, Map<String, String> queryParams, Class<R> responseType)
       throws InfisicalException {
     try {
-      HttpUrl.Builder urlBuilder = HttpUrl.parse(baseUrl).newBuilder();
+      // get() throws on a malformed URL rather than returning null
+      HttpUrl.Builder urlBuilder = HttpUrl.get(baseUrl).newBuilder();
 
       if (queryParams != null) {
         queryParams.forEach(urlBuilder::addQueryParameter);
@@ -163,7 +164,7 @@ public class ApiClient {
       // Build request
       Request.Builder requestBuilder = new Request.Builder()
           .url(url)
-          .patch(RequestBody.create(JSON, jsonBody))
+          .patch(RequestBody.create(jsonBody, JSON))
           .header("Accept", "application/json");
 
       if (this.accessToken != null && !this.accessToken.isEmpty()) {
@@ -199,7 +200,7 @@ public class ApiClient {
       // Build request
       Request.Builder requestBuilder = new Request.Builder()
           .url(url)
-          .delete(RequestBody.create(JSON, jsonBody))
+          .delete(RequestBody.create(jsonBody, JSON))
           .header("Accept", "application/json");
 
       if (this.accessToken != null && !this.accessToken.isEmpty()) {

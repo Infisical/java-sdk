@@ -7,7 +7,7 @@ services:
       - .:/app
     working_dir: /app
     # Run only unit tests (no real credentials). Full suite: mvn test -q with env set.
-    command: mvn test -Dtest=RevokeTokenInputTest,AuthClientTest,AwsAuthProviderTest,ProjectsClientTest
+    command: mvn test -Dtest=RevokeTokenInputTest,AuthClientTest,AwsAuthProviderTest,ProjectsClientTest,ApiClientTest
 
   format:
     image: cimg/openjdk:21.0

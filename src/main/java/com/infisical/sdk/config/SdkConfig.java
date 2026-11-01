@@ -21,7 +21,7 @@ public class SdkConfig {
 
     public SdkConfig build() {
       if (siteUrl == null || siteUrl.isEmpty()) {
-        throw new IllegalStateException("Token must be provided");
+        throw new IllegalStateException("Site URL must be provided");
       }
 
       return new SdkConfig(this);
